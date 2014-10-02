@@ -9,9 +9,10 @@
     xmlhttp.open("GET", apiCall, true);
     xmlhttp.send();
 }(function(data) {
-    var offset = (parseInt(data.dstOffset, 10) / 3600) + (parseInt(data.rawOffset, 10) / 3600);
+    var offset = (parseInt(data.dstOffset, 10) + parseInt(data.rawOffset, 10)) / 3600;
     var date = new Date();
     var hours = date.getUTCHours() + offset;
+    hours = hours >= 24 ? hours - 24 : hours;
     var minutes = date.getMinutes();
     minutes = minutes < 10 ? "0"+minutes : minutes;
     document.getElementById("currentTime").innerHTML = hours + ":" + minutes;
